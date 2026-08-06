@@ -1,0 +1,20 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>{{ request.user.username }} — client-server</title>
+    <link rel="stylesheet" href="{% static 'css/profile_page.css' %}">
+</head>
+<body>
+    <main>
+        <div class="user_top">
+            <img class="user_pic" src="{{ user.avatar_url }}" alt="Аватар">
+            <div class="user_info">
+                <p>{{ user.username }}</p>
+                <p></p>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

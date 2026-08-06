@@ -1,0 +1,30 @@
+@import url('base.css');
+
+main {
+    width: 480px;
+    height: 280px;
+    /*background: blue;*/
+    position: absolute;
+    top: calc(50% - 150px);
+    left: calc(50% - 250px);
+    border-radius: 10px;
+    border: 2px solid black;
+    padding: 10px;
+}
+
+.user_top {
+    display: flex;
+    flex-direction: row;
+    gap: 10px
+}
+
+.user_pic {
+    width: 150px;
+    border-radius: 10px;
+}
+
+.user_info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

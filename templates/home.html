@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Клиент OAuth</title>
+</head>
+<body>
+    {% if user.is_authenticated %}
+        <h1>Добро пожаловать, {{ user.username }}!</h1>
+        <img src="http://192.168.1.103:8000{{ user.pic }}">
+        <p>Вы вошли через центральный сервер авторизации.</p>
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Выйти</button>
+        </form>
+    {% else %}
+        <h1>Вы не авторизованы</h1>
+        <a href="{% url 'social:begin' 'myauthserver' %}">Войти через центральный сервер</a>
+    {% endif %}
+</body>
+</html>
