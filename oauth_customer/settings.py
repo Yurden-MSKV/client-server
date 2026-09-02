@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 from decouple import config
 
@@ -8,18 +9,20 @@ import core.backends
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-42%d4ee7itxgpwwo(mf821dqbxm@y5i5dv++zr#_x=qf!gp_r0'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.102', '192.168.1.103', '192.168.1.52', '192.168.17.198']
+current_ip = os.environ.get('CURRENT_IP')
 
+ALLOWED_HOSTS = [current_ip]
 
 # Application definition
 
@@ -64,7 +67,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'oauth_customer.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
@@ -74,7 +76,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'oauth_customer.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
@@ -94,7 +95,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
@@ -105,7 +105,6 @@ TIME_ZONE = 'Europe/Moscow'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
@@ -141,8 +140,8 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 # Для localhost разработки
-SESSION_COOKIE_SAMESITE = 'Lax'        # или 'None' если кросс-домен
-SESSION_COOKIE_SECURE = False          # для HTTP (не HTTPS)
+SESSION_COOKIE_SAMESITE = 'Lax'  # или 'None' если кросс-домен
+SESSION_COOKIE_SECURE = False  # для HTTP (не HTTPS)
 SESSION_COOKIE_HTTPONLY = True
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # по умолчанию
 
@@ -156,8 +155,8 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.auth_allowed',
     'social_core.pipeline.social_auth.social_user',
     'social_core.pipeline.user.get_username',
-    'social_core.pipeline.user.create_user',          # создаёт пользователя
-    'core.pipeline.save_provider_id',                 # ← наш шаг
+    'social_core.pipeline.user.create_user',  # создаёт пользователя
+    'core.pipeline.save_provider_id',  # ← наш шаг
     'social_core.pipeline.social_auth.associate_user',
     'social_core.pipeline.social_auth.load_extra_data',
     'social_core.pipeline.user.user_details',
